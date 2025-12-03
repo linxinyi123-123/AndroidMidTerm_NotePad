@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- 创建新笔记 -->
+    <item android:id="@+id/menu_add"
+        android:icon="@drawable/ic_menu_compose"
+        android:title="@string/menu_add"
+        android:alphabeticShortcut='a'
+        app:showAsAction="always" />
+
+    <!-- 分类管理 -->
+    <item android:id="@+id/menu_categories"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="分类管理"
+        app:showAsAction="ifRoom" />
+
+    <!-- 分类筛选 -->
+    <item android:id="@+id/menu_filter"
+        android:icon="@drawable/ic_menu_filter"
+        android:title="分类筛选"
+        app:showAsAction="ifRoom" />
+
+    <!-- 搜索历史 -->
+    <item android:id="@+id/menu_search_history"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="搜索历史"
+        app:showAsAction="ifRoom" />
+
+    <!-- 高级搜索选项 -->
+    <item android:id="@+id/menu_advanced_search"
+        android:title="高级搜索"
+        app:showAsAction="never" />
+
+    <!-- 粘贴 -->
+    <item android:id="@+id/menu_paste"
+        android:icon="@drawable/ic_menu_compose"
+        android:title="@string/menu_paste"
+        android:alphabeticShortcut='p'
+        app:showAsAction="never" />
+
+</menu>

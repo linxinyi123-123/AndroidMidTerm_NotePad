@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 搜索框区域 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        android:padding="8dp">
+
+        <!-- 搜索图标 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔍"
+            android:textSize="18sp"
+            android:padding="8dp"
+            android:textColor="@color/white"/>
+
+        <!-- 搜索输入框 -->
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="搜索笔记标题、内容或分类..."
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_alpha_70"
+            android:padding="8dp"
+            android:textSize="16sp"/>
+
+        <!-- 清除按钮 -->
+        <TextView
+            android:id="@+id/search_clear_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="×"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:padding="8dp"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"/>
+    </LinearLayout>
+
+    <!-- 搜索状态栏 -->
+    <TextView
+        android:id="@+id/search_status_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E3F2FD"
+        android:padding="12dp"
+        android:textColor="#1976D2"
+        android:visibility="gone"
+        android:gravity="center_vertical|start"
+        android:textStyle="bold" />
+
+    <!-- 列表视图 -->
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:drawSelectorOnTop="false" />
+
+    <!-- 空列表提示 -->
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_notes"
+        android:padding="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/text_secondary" />
+
+</LinearLayout>

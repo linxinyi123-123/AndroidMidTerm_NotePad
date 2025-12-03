@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:orientation="vertical"
+    android:background="?android:attr/selectableItemBackground"
+    android:paddingLeft="@dimen/item_margin_horizontal"
+    android:paddingRight="@dimen/item_margin_horizontal"
+    android:paddingTop="@dimen/item_padding"
+    android:paddingBottom="@dimen/item_padding">
+
+    <!-- 标题和分类标签行 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- 标题 -->
+        <TextView
+            android:id="@android:id/text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_size_title"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif-medium"/>
+
+        <!-- 分类标签 -->
+        <TextView
+            android:id="@+id/category_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/category_label_background"
+            android:layout_marginStart="8dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:maxEms="8"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <!-- 时间戳和操作按钮行 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- 时间戳 -->
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_size_timestamp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:paddingTop="@dimen/text_spacing"
+            android:fontFamily="sans-serif"/>
+
+        <!-- 搜索状态指示器（新增） -->
+        <TextView
+            android:id="@+id/search_match_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔍 匹配"
+            android:textSize="10sp"
+            android:visibility="gone"
+            android:background="@drawable/search_indicator_background"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            android:singleLine="true"/>
+
+        <!-- 分类筛选标签（可选显示） -->
+        <TextView
+            android:id="@+id/filter_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🏷️"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
+
+    <!-- 底部分隔线 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginLeft="@dimen/item_margin_horizontal" />
+
+</LinearLayout>

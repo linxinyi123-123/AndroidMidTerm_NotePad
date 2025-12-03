@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 间距 -->
+    <dimen name="item_margin_horizontal">16dp</dimen>
+    <dimen name="item_margin_vertical">8dp</dimen>
+    <dimen name="item_padding">14dp</dimen>
+    <dimen name="text_spacing">4dp</dimen>
+
+    <!-- 高度 -->
+    <dimen name="list_item_height">80dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+
+    <!-- 文字大小 -->
+    <dimen name="text_size_title">16sp</dimen>
+    <dimen name="text_size_timestamp">13sp</dimen>
+
+    <!-- 分类相关尺寸 -->
+    <dimen name="color_button_size">36dp</dimen>
+    <dimen name="color_inner_size">28dp</dimen>
+</resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <string name="app_name">NotePad</string>
+    <string name="live_folder_name">Notes</string>
+
+    <string name="title_edit_title">Note title:</string>
+    <string name="title_create">New note</string>
+    <string name="title_edit">Edit: %1$s</string>
+    <string name="title_notes_list">Notes</string>
+
+    <string name="menu_add">New note</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_open">Open</string>
+    <string name="menu_revert">Revert changes</string>
+    <string name="menu_copy">Copy</string>
+    <string name="menu_paste">Paste</string>
+
+    <string name="button_ok">OK</string>
+    <string name="text_title">Title:</string>
+
+    <string name="resolve_edit">Edit note</string>
+    <string name="resolve_title">Edit title</string>
+
+    <string name="error_title">Error</string>
+    <string name="error_message">Error loading note</string>
+    <string name="nothing_to_save">There is nothing to save</string>
+
+
+    <string name="search_cancel">取消</string>
+    <string name="search_clear">清除</string>
+    <!-- 搜索相关字符串 -->
+    <string name="search_hint">搜索笔记标题或内容...</string>
+    <string name="no_search_results">没有找到匹配的笔记</string>
+    <string name="search_in_category">在分类 \"%1$s\" 中搜索: %2$s</string>
+    <string name="search_results_for">搜索: \"%s\"</string>
+    <string name="search_match">匹配</string>
+    <string name="clear_search">清除搜索</string>
+    <!-- 搜索相关字符串 -->
+    <string name="search_history_title">搜索历史</string>
+    <string name="clear_search_history">清除历史</string>
+    <string name="no_search_history">没有搜索历史</string>
+    <string name="search_recent_searches">最近搜索</string>
+    <string name="search_results_count">%1$d 个结果</string>
+    <string name="search_advanced_options">高级搜索选项</string>
+    <string name="search_match_title">标题匹配</string>
+    <string name="search_match_content">内容匹配</string>
+    <string name="search_match_both">标题和内容</string>
+    <string name="search_case_sensitive">区分大小写</string>
+    <string name="search_whole_word">全词匹配</string>
+    <!-- 新增分类相关字符串 -->
+    <string name="category_label">分类</string>
+    <string name="category_manage">分类管理</string>
+    <string name="default_category">默认分类</string>
+    <string name="all_categories">所有分类</string>
+    <string name="filter_by_category">按分类筛选</string>
+    <string name="clear_filter">取消筛选</string>
+    <string name="no_notes_in_category">该分类下没有笔记</string>
+    <string name="no_notes">还没有笔记，点击右下角按钮创建新笔记</string>
+
+    <!-- 便签小部件相关 -->
+    <string name="menu_create_widget">创建便签</string>
+    <string name="widget_title">笔记便签</string>
+    <string name="widget_configure_title">选择便签笔记</string>
+    <string name="widget_note_not_found">笔记不存在</string>
+    <string name="widget_note_deleted">笔记已被删除</string>
+    <string name="widget_click_to_configure">点击配置便签</string>
+</resources>
