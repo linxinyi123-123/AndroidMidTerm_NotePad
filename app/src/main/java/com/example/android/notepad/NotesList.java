@@ -21,6 +21,10 @@ import android.app.ListActivity;
 import android.app.SearchManager;
 import android.appwidget.AppWidgetManager;
 import androidx.appcompat.widget.SearchView;
+
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.KeyEvent;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -351,6 +355,30 @@ public class NotesList extends ListActivity {
             timestampView.setText(formatTimestamp(timestamp));
             categoryView.setText(category);
 
+            Integer categoryColor = CATEGORY_COLORS.get(category);
+            if (categoryColor != null) {
+                // 使用60%透明度的背景，比之前12%更明显
+                int alphaColor = (categoryColor & 0x00FFFFFF) | 0x99000000; // 60%透明度
+
+                GradientDrawable drawable = new GradientDrawable();
+                drawable.setColor(alphaColor);
+                drawable.setCornerRadius(12); // 12dp圆角
+                drawable.setStroke(1, categoryColor); // 使用完整颜色作为边框
+
+                // 设置背景
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    categoryView.setBackground(drawable);
+                } else {
+                    categoryView.setBackgroundDrawable(drawable);
+                }
+
+                // 保持白色文字，但背景更明显
+                categoryView.setTextColor(Color.WHITE);
+            } else {
+                // 如果找不到颜色，使用默认样式
+                categoryView.setBackgroundResource(R.drawable.category_label_background);
+                categoryView.setTextColor(getResources().getColor(android.R.color.black));
+            }
             // 处理搜索高亮
             if (mIsSearchMode && !TextUtils.isEmpty(mCurrentSearchQuery)) {
                 // 高级高亮：检查标题、内容和分类中的匹配

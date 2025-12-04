@@ -41,12 +41,13 @@
             android:paddingEnd="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
-            android:background="@drawable/category_label_background"
             android:layout_marginStart="8dp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:maxEms="8"
-            android:textStyle="bold"/>
+            android:maxEms="10"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+        android:gravity="center"/>
 
     </LinearLayout>
 
