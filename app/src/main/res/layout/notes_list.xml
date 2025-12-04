@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/colorPrimary"
+        android:background="@color/background_light"
         android:padding="8dp">
 
         <!-- 搜索图标 -->
@@ -31,9 +31,9 @@
             android:singleLine="true"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:background="@android:color/transparent"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white_alpha_70"
+            android:background="@color/background_light"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
             android:padding="8dp"
             android:textSize="16sp"/>
 
