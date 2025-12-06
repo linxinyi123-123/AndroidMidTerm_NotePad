@@ -73,61 +73,113 @@ public class NoteWidgetProvider extends AppWidgetProvider {
                 views.setOnClickPendingIntent(R.id.widget_root, configPendingIntent);
 
             } else {
-                // 查询笔记数据
+                // 查询笔记数据 - 修复查询方式
                 Uri noteUri = ContentUris.withAppendedId(NotePad.Notes.CONTENT_URI, noteId);
                 Cursor cursor = null;
 
                 try {
+                    // 尝试直接查询，如果失败则尝试不带条件查询
                     cursor = context.getContentResolver().query(
-                            noteUri,
+                            NotePad.Notes.CONTENT_URI,
                             new String[] {
+                                    NotePad.Notes._ID,
                                     NotePad.Notes.COLUMN_NAME_TITLE,
                                     NotePad.Notes.COLUMN_NAME_NOTE,
                                     NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE,
                                     NotePad.Notes.COLUMN_NAME_CATEGORY
                             },
-                            null, null, null
+                            NotePad.Notes._ID + " = ?",
+                            new String[] { String.valueOf(noteId) },
+                            null
                     );
+
+                    // 如果查询失败，尝试另一种查询方式
+                    if (cursor == null || cursor.getCount() == 0) {
+                        Log.w(TAG, "直接查询失败，尝试URI查询");
+                        if (cursor != null) {
+                            cursor.close();
+                        }
+
+                        // 使用URI查询
+                        cursor = context.getContentResolver().query(
+                                noteUri,
+                                new String[] {
+                                        NotePad.Notes.COLUMN_NAME_TITLE,
+                                        NotePad.Notes.COLUMN_NAME_NOTE,
+                                        NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE,
+                                        NotePad.Notes.COLUMN_NAME_CATEGORY
+                                },
+                                null, null, null
+                        );
+                    }
 
                     if (cursor != null && cursor.moveToFirst()) {
                         // 获取笔记数据
-                        String title = cursor.getString(0);
-                        String content = cursor.getString(1);
-                        long modificationDate = cursor.getLong(2);
-                        String category = cursor.getString(3);
+                        String title = cursor.getString(cursor.getColumnIndexOrThrow(NotePad.Notes.COLUMN_NAME_TITLE));
+                        String content = cursor.getString(cursor.getColumnIndexOrThrow(NotePad.Notes.COLUMN_NAME_NOTE));
+                        long modificationDate = cursor.getLong(cursor.getColumnIndexOrThrow(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE));
+                        String category = cursor.getString(cursor.getColumnIndexOrThrow(NotePad.Notes.COLUMN_NAME_CATEGORY));
 
                         // 格式化内容（限制长度）
                         String displayContent = content;
                         if (displayContent != null && displayContent.length() > 100) {
                             displayContent = displayContent.substring(0, 100) + "...";
+                        } else if (displayContent == null) {
+                            displayContent = "无内容";
+                        }
+
+                        // 处理标题和分类为空的情况
+                        if (title == null || title.isEmpty()) {
+                            title = "无标题";
+                        }
+                        if (category == null || category.isEmpty()) {
+                            category = "默认分类";
                         }
 
                         // 格式化日期
-                        String formattedDate = formatTimestamp(modificationDate);
+                        String formattedDate = formatTimestamp(context, modificationDate);
 
                         // 设置小部件显示内容
-                        views.setTextViewText(R.id.widget_title, title != null ? title : "无标题");
-                        views.setTextViewText(R.id.widget_content, displayContent != null ? displayContent : "无内容");
-                        views.setTextViewText(R.id.widget_category, category != null ? category : "默认分类");
+                        views.setTextViewText(R.id.widget_title, title);
+                        views.setTextViewText(R.id.widget_content, displayContent);
+                        views.setTextViewText(R.id.widget_category, category);
                         views.setTextViewText(R.id.widget_date, formattedDate);
 
-                        Log.d(TAG, "小部件内容更新: " + title);
+                        Log.d(TAG, "小部件内容更新成功: " + title);
 
                     } else {
                         // 笔记不存在
-                        Log.w(TAG, "笔记不存在，ID: " + noteId);
+                        Log.w(TAG, "笔记不存在或无法访问，ID: " + noteId);
                         views.setTextViewText(R.id.widget_title, "笔记不存在");
-                        views.setTextViewText(R.id.widget_content, "该笔记可能已被删除");
-                        views.setTextViewText(R.id.widget_category, "");
+                        views.setTextViewText(R.id.widget_content, "该笔记可能已被删除或无法访问");
+                        views.setTextViewText(R.id.widget_category, "错误");
                         views.setTextViewText(R.id.widget_date, "");
+
+                        // 设置点击重新配置
+                        Intent configIntent = new Intent(context, NoteWidgetConfigureActivity.class);
+                        configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+                        configIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        PendingIntent configPendingIntent = PendingIntent.getActivity(
+                                context, appWidgetId, configIntent,
+                                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                        views.setOnClickPendingIntent(R.id.widget_root, configPendingIntent);
                     }
 
                 } catch (Exception e) {
-                    Log.e(TAG, "查询笔记数据失败", e);
+                    Log.e(TAG, "查询笔记数据失败: " + e.getMessage(), e);
                     views.setTextViewText(R.id.widget_title, "数据加载失败");
-                    views.setTextViewText(R.id.widget_content, "请重新配置");
-                    views.setTextViewText(R.id.widget_category, "");
+                    views.setTextViewText(R.id.widget_content, "请重新配置便签");
+                    views.setTextViewText(R.id.widget_category, "错误");
                     views.setTextViewText(R.id.widget_date, "");
+
+                    // 设置点击重新配置
+                    Intent configIntent = new Intent(context, NoteWidgetConfigureActivity.class);
+                    configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+                    configIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    PendingIntent configPendingIntent = PendingIntent.getActivity(
+                            context, appWidgetId, configIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                    views.setOnClickPendingIntent(R.id.widget_root, configPendingIntent);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -150,19 +202,26 @@ public class NoteWidgetProvider extends AppWidgetProvider {
             Log.d(TAG, "小部件更新完成: " + appWidgetId);
 
         } catch (Exception e) {
-            Log.e(TAG, "更新小部件时发生错误", e);
+            Log.e(TAG, "更新小部件时发生错误: " + e.getMessage(), e);
         }
     }
 
-    private static String formatTimestamp(long timestamp) {
+    private static String formatTimestamp(Context context, long timestamp) {
         if (timestamp == 0) {
             return "未知时间";
         }
 
         java.util.Date date = new java.util.Date(timestamp);
-        java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(null);
-        java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(null);
 
-        return dateFormat.format(date) + " " + timeFormat.format(date);
+        try {
+            java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context);
+            java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
+
+            return dateFormat.format(date) + " " + timeFormat.format(date);
+        } catch (Exception e) {
+            Log.e(TAG, "格式化日期失败: " + e.getMessage());
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault());
+            return sdf.format(date);
+        }
     }
 }
